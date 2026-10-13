@@ -159,7 +159,7 @@ The backend refuses to delete records referenced by other records and returns HT
 - **Elasticsearch connection refused:** Check `docker compose ps`, then `docker compose logs elasticsearch`. Wait for the health check; the image can take time to boot. Confirm port 9200 is free and `ELASTICSEARCH_URL` points to it.
 - **Elasticsearch exits on startup:** Give Docker Desktop more memory (about 2 GB free for the container) and restart with `docker compose up -d`.
 - **Backend says an index is missing:** Run `python create_indices.py` and `python seed_data.py` from `backend`.
-- **Frontend cannot call the API:** Confirm FastAPI is running at port 8000 and `frontend/.env` contains `VITE_API_URL=http://localhost:8000/api`. Restart Vite after changing `.env`.
+- **Frontend cannot call the API locally:** Confirm FastAPI is running at port 8000. Vite forwards local `/api` requests to it. If you have an old `frontend/.env`, change `VITE_API_URL` to `/api` and restart Vite.
 - **Login fails:** Make sure the seed command succeeded. Rerun `python seed_data.py --reset` to restore demo accounts.
 - **PowerShell blocks virtual environment activation:** Run `Set-ExecutionPolicy -Scope Process Bypass`, then activate the virtual environment again.
 
