@@ -16,7 +16,7 @@ app.add_middleware(CORSMiddleware, allow_origins=[x.strip() for x in settings.co
 
 @app.exception_handler(ESConnectionError)
 async def es_unavailable(_, __):
-    return JSONResponse(status_code=503, content={"detail": "Elasticsearch is unavailable. Start Docker and retry."})
+    return JSONResponse(status_code=503, content={"detail": "Elasticsearch is unavailable. Check its connection and retry."})
 
 
 @app.exception_handler(RequestValidationError)

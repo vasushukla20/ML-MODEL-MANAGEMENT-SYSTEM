@@ -84,6 +84,15 @@ npm run dev
 
 Open `http://localhost:5173`.
 
+## Online demo: Elastic Cloud + Render + Cloudflare Pages
+
+1. Create an **Elastic Cloud Hosted deployment** and save its Cloud ID and the generated password for the `elastic` user. The trial is temporary.
+2. Push this repository to GitHub. On Render, select **New > Blueprint**, connect the repository, and choose `main`. Render reads `render.yaml` to create the free FastAPI service. Enter `ELASTIC_CLOUD_ID` and `ELASTIC_PASSWORD` when prompted. Never commit these values to GitHub.
+3. Wait for the Render deployment to finish. Open `https://YOUR-SERVICE.onrender.com/api/health` and confirm `elasticsearch` is `connected`.
+4. In Cloudflare Pages, open the frontend project's **Settings > Variables and secrets**. Set `VITE_API_URL` to `https://YOUR-SERVICE.onrender.com/api`, then redeploy the frontend. The `/api` suffix is required.
+
+The Render startup command creates the six indices and adds demo data only if it is missing. New accounts still start empty. The production backend uses Elastic Cloud; your local Docker data is separate. After the Elastic trial ends, the hosted database stops unless you arrange a paid plan or migrate the data.
+
 The configured addresses are:
 
 | Service | URL |
