@@ -10,6 +10,7 @@ import { Runs } from "../pages/Runs";
 import { RunDetail } from "../pages/RunDetail";
 import { Analytics } from "../pages/Analytics";
 import { SearchPage } from "../pages/Search";
+import { DatabaseDemo } from "../pages/DatabaseDemo";
 import { ThemeToggle } from "../components/ThemeToggle";
 
 const nav = [
@@ -20,6 +21,7 @@ const nav = [
   ["/models", "Models", Settings2],
   ["/runs", "Training Runs", Activity],
   ["/analytics", "Analytics", BarChart3],
+  ["/database", "Database Demo", Database],
 ];
 export function Layout({ user, logout, theme, onToggleTheme }) {
   const [mobile, setMobile] = useState(false),
@@ -102,6 +104,7 @@ export function Layout({ user, logout, theme, onToggleTheme }) {
             <Route path="runs" element={<Runs />} />
             <Route path="runs/:id" element={<RunDetail />} />
             <Route path="analytics" element={<Analytics />} />
+            <Route path="database" element={<DatabaseDemo />} />
             <Route path="search" element={<SearchPage />} />
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>

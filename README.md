@@ -150,6 +150,7 @@ All routes except `/api/health`, `/api/auth/register`, and `/api/auth/login` req
 - Run actions: `PATCH /api/runs/{run_id}/complete` and `/fail`; `POST` to `/metrics`, `/checkpoint`, `/evaluation`, `/deployment`
 - Search: `GET /api/search?q=YOLO`
 - Analytics: `/api/dashboard/summary`, `/api/analytics/top-runs`, `/api/analytics/model-performance`, `/api/analytics/status-distribution`
+- Database presentation: `/api/database/overview` returns live index mappings, workspace counts, and safe sample names for the website's **Database Demo** page.
 
 The backend refuses to delete records referenced by other records and returns HTTP 409. Delete dependent runs and experiments first. A record from another workspace returns HTTP 404 even when its ID is known.
 

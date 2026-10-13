@@ -7,7 +7,7 @@ from elasticsearch import ApiError, ConnectionError as ESConnectionError
 
 from .config import settings
 from .elasticsearch_client import check_connection
-from .routes import auth, projects, datasets, experiments, models, runs, analytics
+from .routes import auth, projects, datasets, experiments, models, runs, analytics, database_demo
 
 app = FastAPI(title="LLM Management System API", version="1.0")
 app.add_middleware(CORSMiddleware, allow_origins=[x.strip() for x in settings.cors_origins.split(",")],
@@ -38,5 +38,5 @@ def health():
 
 
 for router in (auth.router, projects.router, datasets.router, experiments.router,
-               models.router, runs.router, analytics.router):
+               models.router, runs.router, analytics.router, database_demo.router):
     app.include_router(router)
