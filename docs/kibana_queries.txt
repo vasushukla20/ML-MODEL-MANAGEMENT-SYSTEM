@@ -5,20 +5,20 @@
 # to inspect another user's private workspace.
 
 # 1. Show the six Elasticsearch indices used by the application.
-GET _cat/indices/users,projects,datasets,experiments,models,training_runs?v=true&h=index,health
+GET /_cat/indices/users,projects,datasets,experiments,models,training_runs?v=true&h=index,health
 
 # 2. Show the actual mapping (schema) for a training run.
 # Notice keyword IDs/status, numeric metrics, dates, objects, and nested arrays.
-GET training_runs/_mapping
+GET /training_runs/_mapping
 
 # 3. Count the sample datasets in the demo workspace.
-GET datasets/_count
+GET /datasets/_count
 {
   "query": { "term": { "workspace_id": "demo" } }
 }
 
 # 4. Read a few sample dataset documents without exposing user credentials.
-GET datasets/_search
+GET /datasets/_search
 {
   "size": 5,
   "_source": ["dataset_id", "project_id", "name", "source", "size", "data_type"],
@@ -26,7 +26,7 @@ GET datasets/_search
 }
 
 # 5. Full-text search. The backend uses multi_match for project search.
-GET projects/_search
+GET /projects/_search
 {
   "size": 5,
   "_source": ["project_id", "name", "description"],
@@ -41,7 +41,7 @@ GET projects/_search
 }
 
 # 6. Exact-match status plus accuracy range, as on the Training Runs page.
-GET training_runs/_search
+GET /training_runs/_search
 {
   "size": 10,
   "_source": ["run_name", "model_name", "status", "metrics.accuracy"],
@@ -58,7 +58,7 @@ GET training_runs/_search
 }
 
 # 7. Aggregations power the dashboard and analytics charts.
-GET training_runs/_search
+GET /training_runs/_search
 {
   "size": 0,
   "query": { "term": { "workspace_id": "demo" } },
@@ -70,7 +70,7 @@ GET training_runs/_search
 }
 
 # 8. A nested query finds models with a version 1.1 document.
-GET models/_search
+GET /models/_search
 {
   "size": 10,
   "_source": ["name", "model_type", "versions.version"],
@@ -89,7 +89,7 @@ GET models/_search
 # project document in the demo workspace. Do not run the DELETE request first.
 
 # 9. CREATE one temporary document.
-PUT projects/_doc/dbms-teacher-demo?refresh=true
+PUT /projects/_doc/dbms-teacher-demo?refresh=true
 {
   "project_id": "dbms-teacher-demo",
   "workspace_id": "demo",
@@ -101,13 +101,13 @@ PUT projects/_doc/dbms-teacher-demo?refresh=true
 }
 
 # 10. READ the document by its ID.
-GET projects/_doc/dbms-teacher-demo
+GET /projects/_doc/dbms-teacher-demo
 
 # 11. UPDATE one field.
-POST projects/_update/dbms-teacher-demo?refresh=true
+POST /projects/_update/dbms-teacher-demo?refresh=true
 {
   "doc": { "description": "Updated directly in Kibana Console" }
 }
 
 # 12. DELETE the temporary document after the teacher has seen it.
-DELETE projects/_doc/dbms-teacher-demo?refresh=true
+DELETE /projects/_doc/dbms-teacher-demo?refresh=true
